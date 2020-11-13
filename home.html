@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>VirtCalendar | Michael Bernal & Juan Rojas</title>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <!-- FullCalendar CSS -->
+        <link rel="stylesheet" href="vendor/fullcalendar/core/main.min.css">
+        <link rel="stylesheet" href="vendor/fullcalendar/daygrid/main.min.css">
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <!-- FullCalendar JS -->
+        <script src="https://momentjs.com/downloads/moment-with-locales.js"></script>
+        <script src="vendor/fullcalendar/core/main.min.js"></script>
+        <script src="vendor/fullcalendar/daygrid/main.min.js"></script>
+        <script src="vendor/fullcalendar/interaction/main.min.js"></script>
+        <!-- Custom JS -->
+        <script src="js/main.js"></script>
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="#">
+              <img src="./image/logo.svg" width="30" alt="" loading="lazy">
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="#addEvent" data-toggle="modal">Agregar evento</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Categorías
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Entretenimiento</a>
+                  <a class="dropdown-item" href="#">Estudio</a>
+                  <a class="dropdown-item" href="#">Trabajo</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Ver todos</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="page d-flex bg-white">
+        <div class="otro m-5">
+          <div id='calendar'></div>
+        </div>
+      </div>
+    </main>
+
+  <!-- Modal -->
+  <div class="modal fade" id="addEvent" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="addEventLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addEventLabel">Agregar un evento</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Titulo del evento">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Fecha del evento</label>
+                  <input type="date" class="form-control" placeholder="Last name">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="endDate">
+                  <label class="form-check-label" for="endDate">
+                    Fin del evento
+                  </label>
+                </div>
+                <div class="form-group">
+                  <input type="date" class="form-control" disabled>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Hora de inicio</label>
+                  <input type="time" class="form-control">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="endDate">
+                  <label class="form-check-label" for="endDate">
+                    Hora de fin
+                  </label>
+                </div>
+                <div class="form-group">
+                  <input type="time" class="form-control" disabled>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Descripción</label>
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary">Agregar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  </body>
+</html>
