@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include_once 'conexion.php';
+include_once '../core/conexion.php';
 
 $mail_login = $_POST['mail'];
 $pass_login = $_POST['pass'];
@@ -19,10 +19,11 @@ if(!$resultado){
     die();
 }
 
-if( password_verify($pass_login, $resultado['pass']) ){
+if( password_verify($pass_login, $resultado['Password']) ){
     //las contraseñas son igual
     $_SESSION['admin'] = $mail_login;
     //header('location: ../panel-admin/');
+    echo 1;
 }else{
     echo 'No son iguales las contraseñas';
     die();

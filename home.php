@@ -1,30 +1,6 @@
-<!doctype html>
-<html lang="es">
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-        <title>VirtCalendar | Michael Bernal & Juan Rojas</title>
-
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <!-- FullCalendar CSS -->
-        <link rel="stylesheet" href="vendor/fullcalendar/core/main.min.css">
-        <link rel="stylesheet" href="vendor/fullcalendar/daygrid/main.min.css">
-        <!-- jQuery -->
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-        <!-- FullCalendar JS -->
-        <script src="https://momentjs.com/downloads/moment-with-locales.js"></script>
-        <script src="vendor/fullcalendar/core/main.min.js"></script>
-        <script src="vendor/fullcalendar/daygrid/main.min.js"></script>
-        <script src="vendor/fullcalendar/interaction/main.min.js"></script>
-        <!-- Custom JS -->
-        <script src="js/main.js"></script>
-        <!-- Custom CSS -->
-        <link rel="stylesheet" href="css/main.css">
-    </head>
-  <body>
+<?php
+  include 'layout/head.html';
+?>
     <header>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <a class="navbar-brand" href="#">
@@ -57,8 +33,8 @@
     </header>
 
     <main>
-      <div class="page d-flex bg-white">
-        <div class="otro m-5">
+      <div class="page d-flex p-5">
+        <div class="card p-5">
           <div id='calendar'></div>
         </div>
       </div>
@@ -79,13 +55,13 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Titulo del evento">
+                  <input type="text" class="form-control" id="tt" placeholder="Titulo del evento">
                 </div>
               </div>
               <div class="col">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Fecha del evento</label>
-                  <input type="date" class="form-control" placeholder="Last name">
+                  <input type="date" class="form-control" id="ds" placeholder="Fecha inicio">
                 </div>
               </div>
               <div class="col">
@@ -96,46 +72,49 @@
                   </label>
                 </div>
                 <div class="form-group">
-                  <input type="date" class="form-control" disabled>
+                  <input type="date" class="form-control" id="de" disabled>
                 </div>
               </div>
               <div class="col">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Hora de inicio</label>
-                  <input type="time" class="form-control">
+                  <input type="time" class="form-control" id="hs">
                 </div>
               </div>
               <div class="col">
                 <div class="form-check mb-2">
-                  <input class="form-check-input" type="checkbox" id="endDate">
-                  <label class="form-check-label" for="endDate">
+                  <input class="form-check-input" type="checkbox" id="endHour">
+                  <label class="form-check-label" for="endHour">
                     Hora de fin
                   </label>
                 </div>
                 <div class="form-group">
-                  <input type="time" class="form-control" disabled>
+                  <input type="time" class="form-control" id="he" disabled>
                 </div>
               </div>
               <div class="col-md-12">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Descripción</label>
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                  <label for="dc">Descripción</label>
+                  <textarea class="form-control" id="dc" rows="3"></textarea>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="cl">Color del evento</label>
+                  <input type="color" id="cl" class="form-control">
                 </div>
               </div>
             </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Agregar</button>
+            </div>
           </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary">Agregar</button>
         </div>
       </div>
     </div>
   </div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-  </body>
-</html>
+<?php
+    include 'layout/footer.html';
+?>
