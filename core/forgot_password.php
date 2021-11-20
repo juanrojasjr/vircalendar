@@ -38,8 +38,7 @@
         $sent1->execute(array($passEncry,$iddUser));
 
         $dest = $email; //Email de destino
-        $nombre = 'VirtCalendar';
-        $asunto = "Reestablecer contraseña - VirCalendar"; //Asunto
+        $asunto = "Reestablecer contraseña - " . $config['site']['name']; //Asunto
         $cuerpo = "
                     <!DOCTYPE html>
                     <html lang='es'>
@@ -63,7 +62,7 @@
                     </html>"; //Cuerpo del mensaje
                     
         //Cabeceras del correo
-        $headers = "From: $nombre <soporte@vircalendar.com>\r\n"; //Quien envia?
+        $headers = "From:". $config['site']['name']." <". $config['site']['correo'] .">\r\n"; //Quien envia?
         $headers .= "X-Mailer: PHP5\n";
         $headers .= 'MIME-Version: 1.0' . "\n";
         $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n"; //

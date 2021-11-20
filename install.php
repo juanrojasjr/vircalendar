@@ -24,7 +24,7 @@ $result['msg'] = $conexion->errorCode();
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Instalación | VirCalendar</title>
+  <title>Instalación | <?php echo $config['site']['name']; ?></title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
@@ -32,7 +32,7 @@ $result['msg'] = $conexion->errorCode();
   <main class="container min-vh-100 d-flex justify-content-center align-items-center">
     <div class="card">
       <div class="card-body text-center">
-        <p class="lead">Instalación de VirCalendar</p>
+        <p class="lead">Instalación de <?php echo $config['site']['name']; ?></p>
         <p><?php
           if ($result['msg'] == 'HY000') {
             echo '<h2 class="text-warning">¡Ya todo está instalado!</h2>';
@@ -52,7 +52,7 @@ $result['msg'] = $conexion->errorCode();
             </tr>
           </table>
           <?php
-            echo '<p>Disfrútalo y gracias por instalar VirCalendar.</p>';
+            echo '<p>Disfrútalo y gracias por instalar'. $config['site']['name'] . '</p>';
             echo "<a href='/' class='link-success text-decoration-none'>⬅ vamo' a darle</a>";
           }
         ?></p>

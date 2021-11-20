@@ -12,5 +12,9 @@ return [
         'user' => $user,
         'pass' => $pass,
         'options' => [ PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION ]
+    ],
+    'site' => [
+        'name' => 'VirCalendar',
+        'correo' => 'soporte@virtcalendar.com'
     ]
 ];
