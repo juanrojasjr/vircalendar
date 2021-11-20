@@ -87,6 +87,7 @@
                                 </div>
                                 <div class="form-footer">
                                     <div class="actions mt-3">
+                                        <a href="/" class="btn btn-secunday">Volver</a>
                                         <button type="submit" name="submit" class="btn btn-primary">Registrarme</button>
                                     </div>
                                 </div>
@@ -104,8 +105,4 @@
 <?php
     include 'layout/footer.html';
     //Si no hay errores, redirecciona al home.
-    if (!$resultado['error']) {
-        header("refresh:5;url=/");
-        exit();
-    }
 ?>

@@ -1,7 +1,7 @@
 const calendarEl = document.getElementById("calendar");
 
 /* Elimina el calendario si no detecta un inicio de sesión */
-if (calendarEl && !localStorage.getItem('uid')) {
+if (calendarEl && !sessionStorage.getItem('uid')) {
   $(calendarEl).remove();
   $('.noLogin').removeClass('d-none');
 }
@@ -125,7 +125,7 @@ $('#login button[type="submit"]').click(function (e) {
       errContainer.show();
       $(html).appendTo(errContainer);
     } else {
-      localStorage.setItem("uid", errors["uid"]);
+      sessionStorage.setItem("uid", errors["uid"]);
       setTimeout(function () {
         window.location.href = "home";
       }, 1000);
@@ -134,7 +134,7 @@ $('#login button[type="submit"]').click(function (e) {
 });
 
 function closeSession() {
-  localStorage.clear();
+  sessionStorage.clear();
   window.location.href = "/";
 }
 
