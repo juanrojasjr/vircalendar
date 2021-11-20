@@ -1,5 +1,11 @@
 const calendarEl = document.getElementById("calendar");
 
+/* Elimina el calendario si no detecta un inicio de sesión */
+if (calendarEl && !localStorage.getItem('uid')) {
+  $(calendarEl).remove();
+  $('.noLogin').removeClass('d-none');
+}
+
 /* Reestablecer contraseña olvidada */
 $('#forgot-password button[type="submit"]').click(function (e) {
   e.preventDefault();
@@ -34,7 +40,6 @@ $('#addEvent button[type="submit"]').click(function (e) {
     dc = $("#dc").val(),
     cl = $("#cl").val();
   let deIncrement = de != null ? moment(de).add(1, 'days').format("YYYY-MM-DD") : null;
-  console.log(deIncrement);
   if (
     $("#tt").val() != "" &&
     $("#ds").val() != "" &&
@@ -55,7 +60,6 @@ $('#addEvent button[type="submit"]').click(function (e) {
         cl: cl,
       },
     }).done(function (msg) {
-      console.log(msg);
       if (msg == 1) {
         Swal.fire({
           icon: "success",
@@ -64,10 +68,9 @@ $('#addEvent button[type="submit"]').click(function (e) {
           timer: 1500,
         });
         $("#addEvent").modal("hide");
-        $("#calendar").empty();
+        //$("#calendar").empty();
         //calendarEl.refetchEvents();
       } else {
-          console.log(msg);
         Swal.fire({
           icon: "error",
           text: "Contacte con el administrador del sitio",
@@ -130,32 +133,10 @@ $('#login button[type="submit"]').click(function (e) {
   });
 });
 
-/* Registro de nuevo usuario */
-// $('#register button[type="submit"]').click(function (e) {
-//     e.preventDefault();
-//     const
-//         firstname = $('#firstname').val(),
-//         lastname = $('#lastname').val(),
-//         email = $('#email').val(),
-//         pass = $('#password').val(),
-//         pass2 = $('#password2').val(),
-//         phone = $('#phone').val();
-//     if (pass == pass2) {
-//         $.ajax({
-//             method: "POST",
-//             url: "inc/register.php",
-//             data: { firstname: firstname, lastname: lastname, email: email, pass: pass, phone: phone }
-//           }).done(function( msg ) {
-//                 console.log(msg);
-//                 if (msg==1) {
-//                     alert('Su cuenta ha sido creada.')
-//                     setTimeout(() => {
-//                         $(location).attr('href','index')
-//                     }, 1000);
-//                 }
-//             });
-//     }else{ alert('Las contraseñas no son iguales.') }
-// });
+function closeSession() {
+  localStorage.clear();
+  window.location.href = "/";
+}
 
 /* Reestablecer contraseña olvidada */
 $('#modal-forgotpassword button[type="submit"]').click(function (e) {
