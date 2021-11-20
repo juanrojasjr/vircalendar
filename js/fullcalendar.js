@@ -23,6 +23,9 @@ document.addEventListener("DOMContentLoaded", function () {
             method: "POST",
             dataType: "json",
             url: "core/generate-json.php",
+            extraParams: {
+              uid: localStorage.getItem('uid')
+            }
         },
         eventClick: function(info) {
             //console.log(info);
