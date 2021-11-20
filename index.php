@@ -1,8 +1,9 @@
 <?php
     session_start();
-    //echo password_hash("123456", PASSWORD_DEFAULT)."\n"
+    //echo password_hash("123456", PASSWORD_DEFAULT)."\n";
     include 'layout/head.html';
 ?>
+    <div class="errorContainer" style="display: none"></div>
     <main>
         <div class="page d-flex justify-content-center align-items-center">
             <div class="container">
@@ -16,27 +17,25 @@
                                 <!-- <h2>VirtCalendar</h2> -->
                                 <p>Ingrese sus credenciales</p>
                             </div>
-                            <form id="login" class="w-50 mx-auto" method="POST">
-                                <div class="form-group">
-                                    <input type="email" id="email" class="form-control" placeholder="Email Address">
+                            <form id="login" class="w-75 mx-auto" method="POST">
+                                <div class="mb-3">
+                                    <input type="text" id="nickname" name="nickname" class="form-control" placeholder="Nombre de usuario">
                                 </div>
-                                <div class="form-group">
-                                    <input type="password" class="form-control" id="password" placeholder="Password">
+                                <div class="mb-3">
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña">
                                 </div>
-                                <div class="forgot mb-2">
+                                <div class="forgot mb-3">
                                     <a href="register" class="text-secondary">¿No tiene cuenta?</a>
-                                    <a href="#modal-forgotpassword" data-toggle="modal" class="text-secondary">¿Olvidaste la contraseña?</a>
+                                    <a href="#modal-forgotpassword" data-bs-toggle="modal" class="text-secondary">¿Olvidaste la contraseña?</a>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Ingresar</button>
                             </form>
                         </div>
                     </div>
                 </div>
-                <div class="main-div">
+                <!-- <div class="main-div"> -->
             </div>
         </div>
-        <footer>
-        </footer>
     </main>
 
 <!-- Modal -->
@@ -45,9 +44,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Recuperar contraseña</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form>

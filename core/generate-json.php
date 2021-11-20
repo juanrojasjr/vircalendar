@@ -1,23 +1,25 @@
 <?php
-include '../core/conexion.php';
+$config = include 'config.php';
 
-//$sql = 'SELECT * FROM banners_zones NATURAL JOIN banners';
+//Establece la conexión con el servidor de base de datos
+$connection = new PDO($config['db']['common'], $config['db']['user'], $config['db']['pass'], $config['db']['options']);
+
 $sql = "SELECT * FROM events";
-$sent = $pdo->prepare($sql);
+$sent = $connection->prepare($sql);
 $sent->execute();
 $res = $sent->fetchAll();
 
-$arrayV;//
+$arrayV;
 
 foreach ($res as $key) {
     $arrayV[] = array(
-        "title" => $key['Title'],
-        "start" => $key['DateStar'],
-        "end"   => $key['DateEnd'],
-        "description" => $key['Description'],
-        "hourstar" => $key['HourStar'],
-        "hourend" => $key['HourEnd'],
-        "color" => $key['Color'],
+        "title" => $key['name'],
+        "start" => $key['date_start'],
+        "end"   => $key['date_end'],
+        "desc" => $key['desc'],
+        "hourstar" => $key['hour_start'],
+        "hourend" => $key['hour_end'],
+        "color" => $key['color'],
         "textColor" => '#ffffff'
     );
 }

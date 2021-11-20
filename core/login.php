@@ -1,30 +1,44 @@
 <?php
 session_start();
 
-include_once '../core/conexion.php';
+$config = include 'config.php';
 
-$mail_login = $_POST['mail'];
-$pass_login = $_POST['pass'];
+$nickname = $_POST['nickname'];
+$pass = $_POST['pass'];
 
+$callback = [
+    'error' => false,
+    'msg' => '',
+    'uid' => 0
+];
 
-//VERIFICAR SI EL USUARIO EXISTE
-$sql = 'SELECT Email, Password FROM user WHERE Email = ?';
-$sentencia = $pdo->prepare($sql);
-$sentencia->execute(array($mail_login));
-$resultado = $sentencia->fetch();
+//Establece la conexión con el servidor de base de datos
+$connection = new PDO($config['db']['common'], $config['db']['user'], $config['db']['pass'], $config['db']['options']);
 
-if(!$resultado){
-    //matar la operación
-    echo 'No existe el usuario';
-    die();
+try {
+    $sql = "SELECT uid, nickname, password FROM users_data WHERE nickname = ?";
+    $sent = $connection->prepare($sql);
+    $sent->execute(array($nickname));
+    $resultado = $sent->fetch();
+
+    //Valida si existe el usuario ingresado.
+    if(!$resultado){
+        $callback['error'] = true;
+        $callback['msg'] = 'El usuario no existe.';
+    //Si el usuario existe, valida la contraseña ingresada con la almacenada.
+    }else if (password_verify($pass, $resultado[2])) {
+        $_SESSION['u_name'] = $resultado[1];
+        $_SESSION['uid'] = $resultado[0];
+        $callback['uid'] = $resultado[0];
+    }else{
+        //En caso contrario, la contraseña es incorrecta.
+        $callback['error'] = true;
+        $callback['msg'] = 'La contraseña no es correcta.';
+    }
+} catch (PDOException $error) {
+    $callback['error'] = true;
+    $callback['msg'] = $error->getMessage();
 }
 
-if( password_verify($pass_login, $resultado['Password']) ){
-    //las contraseñas son igual
-    $_SESSION['admin'] = $mail_login;
-    //header('location: ../panel-admin/');
-    echo 1;
-}else{
-    echo 'No son iguales las contraseñas';
-    die();
-}
+//Devuelve el array asociativo con las respuestas.
+echo json_encode($callback);

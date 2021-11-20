@@ -1,5 +1,57 @@
 <?php
     include 'layout/head.html';
+
+    //Valida si existe el elemento.
+    if (isset($_POST['submit'])) {
+        $config = include 'core/config.php';
+
+        //Establece la conexión con el servidor de base de datos
+        $connection = new PDO($config['db']['common'], $config['db']['user'], $config['db']['pass'], $config['db']['options']);
+
+        $resultado = [
+            'error' => false,
+            'mensaje' => 'El usuario ' . $_POST['firstname'] . ' ha sido agregado con éxito'
+        ];
+
+        try {
+            // Encriptación de la contraseña
+            $pass = $_POST['password'];
+            $pass_encryp = password_hash($pass, PASSWORD_DEFAULT);
+
+            // Recogemos y almacenamos la información del usuario en un arreglo
+            $newUser = [
+                "nickname" => $_POST['nickname'],
+                "password" => $pass_encryp,
+                "firstname" => $_POST['firstname'],
+                "lastname" => $_POST['lastname'],
+                "email" => $_POST['email'],
+                "age" => $_POST['age']
+            ];
+
+            $sql = "INSERT INTO users_data (nickname, password, firstname, lastname, email, age)";
+            $sql .= "VALUES (:" . implode(", :", array_keys($newUser)) . ")";
+            $sent = $connection->prepare($sql);
+            $sent->execute($newUser);
+
+        } catch (PDOException $error) {
+            $resultado['error'] = true;
+            $resultado['mensaje'] = $error->getMessage();
+        }
+    }
+
+    if (isset($resultado)) {
+        ?>
+        <div class="container mt-3">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="alert alert-<?= $resultado['error'] ? 'danger' : 'success' ?>" role="alert">
+                <?= $resultado['mensaje'] ?>
+              </div>
+            </div>
+          </div>
+        </div>
+        <?php
+    }
 ?>
     <main>
         <div class="page d-flex justify-content-center align-items-center">
@@ -12,30 +64,30 @@
                                     <img src="image/logo.svg" alt="Logo VirtCalendar" class="img-fluid w-50">
                                 </figure>
                             </div>
-                            <form id="register" class="w-50 mx-auto">
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <input type="text" class="form-control" placeholder="Nombre" id="firstname">
+                            <form id="register" class="w-75 mx-auto" method="POST">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Nombre" name="firstname">
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <input type="text" class="form-control" placeholder="Apellidos" id="lastname">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Apellidos" name="lastname">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Nombre de usuario" name="nickname">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="number" class="form-control" placeholder="Edad" name="age">
+                                    </div>
+                                    <div class="col">
+                                        <input type="password" class="form-control" placeholder="Contraseña" name="password">
+                                    </div>
+                                    <div class="col">
+                                        <input type="email" class="form-control" placeholder="Correo electrónico" name="email" >
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <input type="email" class="form-control" id="email" placeholder="Correo electrónico">                
-                                </div>                        
-                                <div class="form-group">                
-                                    <input type="password" class="form-control" id="password" placeholder="Password">                
-                                </div>
-                                <div class="form-group">                
-                                    <input type="password" class="form-control" id="password2" placeholder="Repita la contraseña">
-                                </div>
-                                <div class="form-group">
-                                    <input type="phone" class="form-control" placeholder="Teléfono" id="phone">
-                                </div>
-                                <div class="form-footer border-top">
+                                <div class="form-footer">
                                     <div class="actions mt-3">
-                                        <button type="submit" class="btn btn-primary">Registrarme</button>                
+                                        <button type="submit" name="submit" class="btn btn-primary">Registrarme</button>
                                     </div>
                                 </div>
                             </form>
@@ -51,4 +103,9 @@
 
 <?php
     include 'layout/footer.html';
+    //Si no hay errores, redirecciona al home.
+    if (!$resultado['error']) {
+        header("refresh:5;url=/");
+        exit();
+    }
 ?>

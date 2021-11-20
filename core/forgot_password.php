@@ -1,5 +1,8 @@
 <?php
-    include '../core/conexion.php';
+    $config = include 'core/config.php';
+
+    //Establece la conexión con el servidor de base de datos
+    $connection = new PDO($config['db']['common'], $config['db']['user'], $config['db']['pass'], $config['db']['options']);
 
     $email = $_POST['email'];
 
@@ -27,7 +30,6 @@
     function sendEmail($pass,$iddUser,$email){
         include '../core/conexion.php';
 
-        $passNo = $pass;
         $passEncry = password_hash($pass, PASSWORD_BCRYPT);
 
         //Actualiza la db con la nueva contraseña
@@ -55,7 +57,7 @@
                         <div>
                             <p>No te preocupes, aquí tienes una nueva.</p>
                             <p>Recuerda cambiarla por una que no olvides al momento de ingresar al sistema.</p>
-                            <code> ".$passNo."</code>
+                            <code> ".$pass."</code>
                         </div>
                     </body>
                     </html>"; //Cuerpo del mensaje
