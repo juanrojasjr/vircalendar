@@ -1,6 +1,6 @@
 <?php
     session_start();
-    //echo password_hash("123456", PASSWORD_DEFAULT)."\n";
+    //echo '<pre>'. password_hash("demo", PASSWORD_DEFAULT)."</pre>\n";
     include 'layout/head.html';
 ?>
     <div class="errorContainer" style="display: none"></div>

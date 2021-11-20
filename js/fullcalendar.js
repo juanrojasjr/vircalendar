@@ -28,19 +28,16 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         },
         eventClick: function(info) {
-            //console.log(info);
-            //console.log(info.event.backgroundColor);
             const tt = info.event.title,
                 ds = moment(info.event.start).format("DD-MM-YYYY"),
                 de = moment(info.event.end).subtract(1, 'days').format("DD-MM-YYYY"),
                 dp = info.event.extendedProps.desc,
                 hs = info.event.extendedProps.hourstar,
                 he = info.event.extendedProps.hourend;
-            //console.log(tt + ' == ' + ds + ' == ' + de + ' == ' + dp + ' == ' + hs + ' == ' + he);
             Swal.fire({
-                title: tt,
                 html:
-                  `<table class="table">
+                  `<h2 class="swal2-title" style="color: ${info.event.backgroundColor}">${tt}</h2>
+                  <table class="table">
                     <tr>
                         <th><p class="mb-0">📅 Fecha inicio</p></th>
                         <th><p class="mb-0">📅 Fecha fin</p></th>
