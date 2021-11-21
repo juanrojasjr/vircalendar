@@ -1,6 +1,6 @@
 <?php
 
-$config = include 'config.php';
+$config = include '../config.php';
 
 //Establece la conexión con el servidor de base de datos
 $connection = new PDO($config['db']['common'], $config['db']['user'], $config['db']['pass'], $config['db']['options']);

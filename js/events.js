@@ -64,6 +64,7 @@ function createEvent() {
         $("#addEvent").modal("hide");
         updtFullCalendar();
       } else {
+        console.error(msg);
         Swal.fire({
           icon: "error",
           text: "Contacte con el administrador del sitio",
