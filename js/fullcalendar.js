@@ -22,7 +22,7 @@ function fullcalendar(calendarEl) {
     events: {
       method: "POST",
       dataType: "json",
-      url: "core/generate-json.php",
+      url: "core/events/read.php",
       extraParams: {
         uid: localStorage.getItem("uid"),
       },

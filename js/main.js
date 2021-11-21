@@ -67,7 +67,7 @@ $('#addEvent button[type="submit"]').click(function (e) {
   ) {
     $.ajax({
       method: "POST",
-      url: "core/addEvent.php",
+      url: "core/events/create.php",
       data: {
         uid: uid,
         tt: tt,
