@@ -60,9 +60,14 @@ function fullcalendar(calendarEl) {
                 <tr>
                     <td colspan="2" class="dataUpdt">${dp}</td>
                 </tr>
+                <tr>
+                  <td colspan="2" class="dataUpdt" style="display: none"><input type="color" class="form-control dataUpdtInput" value="${color}"></td>
+                </tr>
             </tbody>
         </table>`;
 
+        $('#btnUpdateInputs').prop("disabled",false);
+        $('#btnSaveUpdt').hide();
         $('#eventModal .btnClose').css({"background-color": color, "border-color": color})
         $('#eventModal .modal-body').html(html);
         $('#eventModal').modal('show');
