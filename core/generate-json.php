@@ -22,7 +22,8 @@ foreach ($res as $key) {
         "hourstar" => $key['hour_start'],
         "hourend" => $key['hour_end'],
         "color" => $key['color'],
-        "textColor" => '#ffffff'
+        "eid" => $key['eid'],
+        "textColor" => '#ffffff',
     );
 }
 $resEncodeA  = json_encode($arrayV);
