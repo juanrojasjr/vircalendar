@@ -113,7 +113,7 @@
         <div class="modal-header justify-content-center">
           <div class="btn-group" role="group">
               <button type="button" class="btn btn-outline-warning btn-sm" id="btnUpdateInputs">🖊 Modificar</button>
-              <button type="button" class="btn btn-outline-danger btn-sm">🗑 Eliminar</button>
+              <button type="button" class="btn btn-outline-danger btn-sm" id="btnDeleteEvent">🗑 Eliminar</button>
           </div>
         </div>
         <div class="modal-body text-center"></div>

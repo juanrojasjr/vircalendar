@@ -1,6 +1,48 @@
 import { updtFullCalendar } from './fullcalendar.js';
 
-function updateEvent() {
+function createEvent() {
+    updtFullCalendar();
+}
+
+function deleteEvent(eid) {
+    Swal.fire({
+        title: '¡Espera un segundo!',
+        text: "¿En realidad quieres eliminar este evento?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#198754',
+        cancelButtonColor: '#dc3545',
+        confirmButtonText: '¡Si, eliminar!',
+        cancelButtonText: 'Mejor no'
+    }).then((result) => {
+        if (result.dismiss != 'cancel') {
+            $.ajax({
+                method: "POST",
+                url: "core/events/delete.php",
+                data: {eid: eid}
+            }).done( (msg) => {
+                if (msg == 1) {
+                    Swal.fire({
+                        title: '¡Eliminado!',
+                        text: 'Tu evento a quedado en el olvido',
+                        icon: 'success',
+                        confirmButtonText: 'Vale'
+                    });
+                    $('#eventModal').modal('hide');
+                    updtFullCalendar();
+                } else {
+                    console.error(msg);
+                    Swal.fire({
+                        icon: "error",
+                        text: "Debe llenar mínimo el campo título, fecha de inicio, hora de inicio y descripción.",
+                    });
+                }
+            });
+        }
+    });
+}
+
+function updateEvent(eid, data) {
     $('#eventModal').modal('hide');
     $('#btnSaveUpdt').hide();
     updtFullCalendar();
@@ -28,4 +70,4 @@ function updateInputsData() {
 }
 
 
-export { updateEvent, updateInputsData }
+export { createEvent, updateEvent, deleteEvent, updateInputsData }

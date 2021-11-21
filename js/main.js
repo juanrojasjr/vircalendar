@@ -1,5 +1,5 @@
 import { fullcalendar, updtFullCalendar } from './fullcalendar.js';
-import { updateEvent, updateInputsData } from './events.js';
+import { updateEvent, deleteEvent, updateInputsData } from './events.js';
 
 const calendarEl = document.getElementById("calendar");
 
@@ -9,14 +9,19 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-$('#btnUpdateInputs').click(function (e) { 
+$('#btnUpdateInputs').click((e) => { 
   e.preventDefault();
   updateInputsData();
 });
 
-$('#btnSaveUpdt').click(function (e) { 
+$('#btnSaveUpdt').click((e) => { 
   e.preventDefault();
   updateEvent();
+});
+
+$('#btnDeleteEvent').click((e) => { 
+  e.preventDefault();
+  deleteEvent( $('#eid').text() );
 });
 
 /* Elimina el calendario si no detecta un inicio de sesión */
@@ -78,7 +83,7 @@ $('#addEvent button[type="submit"]').click(function (e) {
         dc: dc,
         cl: cl,
       },
-    }).done(function (msg) {
+    }).done((msg) => {
       if (msg == 1) {
         Swal.fire({
           icon: "success",
