@@ -49,7 +49,7 @@
   </main>
 
   <!-- Modal addEvent-->
-  <div class="modal fade" id="addEvent" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addEventLabel" aria-hidden="true">
+  <div class="modal fade" id="addEvent" data-bs-backdrop="static" tabindex="-1" aria-labelledby="addEventLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -107,7 +107,7 @@
   </div>
 
   <!-- Modal see information -->
-  <div class="modal fade" id="eventModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+  <div class="modal fade" id="eventModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header justify-content-center">
