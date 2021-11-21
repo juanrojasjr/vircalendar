@@ -1,4 +1,5 @@
 import { fullcalendar, updtFullCalendar } from './fullcalendar.js';
+import { updateEvent, updateInputsData } from './events.js';
 
 const calendarEl = document.getElementById("calendar");
 
@@ -6,6 +7,16 @@ document.addEventListener("DOMContentLoaded", () => {
   if (calendarEl != null) {
     fullcalendar(calendarEl);
   }
+});
+
+$('#btnUpdateInputs').click(function (e) { 
+  e.preventDefault();
+  updateInputsData();
+});
+
+$('#btnSaveUpdt').click(function (e) { 
+  e.preventDefault();
+  updateEvent();
 });
 
 /* Elimina el calendario si no detecta un inicio de sesión */

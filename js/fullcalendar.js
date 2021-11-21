@@ -33,34 +33,39 @@ function fullcalendar(calendarEl) {
         de = moment(info.event.end).subtract(1, "days").format("DD-MM-YYYY"),
         dp = info.event.extendedProps.desc,
         hs = info.event.extendedProps.hourstar,
-        he = info.event.extendedProps.hourend;
-      Swal.fire({
-        html: `<h2 class="swal2-title" style="color: ${info.event.backgroundColor}">${tt}</h2>
-                <table class="table">
-                  <tr>
-                      <th><p class="mb-0">📅 Fecha inicio</p></th>
-                      <th><p class="mb-0">📅 Fecha fin</p></th>
-                  </tr>
-                  <tr>
-                      <td>${ds}</td>
-                      <td>${de}</td>
-                  </tr>
-                  <tr>
-                      <th><p class="mb-0">⏰ Hora inicio</p></th>
-                      <th><p class="mb-0">⏰ Hora fin</p></th>
-                  </tr>
-                  <tr>
-                      <td>${hs}</td>
-                      <td>${he}</td>
-                  </tr>
-                  <tr>
-                      <td colspan="2">${dp}</td>
-                  </tr>
-                </table>`,
-        showCloseButton: false,
-        confirmButtonText: "Cerrar",
-        confirmButtonColor: info.event.backgroundColor,
-      });
+        he = info.event.extendedProps.hourend,
+        color = info.event.backgroundColor,
+        eid = info.event.extendedProps.eid;
+
+        let html = `<div class="visually-hidden" id="eid">${eid}</div>
+        <h2 class="swal2-title dataUpdt" style="color: ${color}">${tt}</h2>
+        <table class="table">
+            <tbody>
+                <tr style="color: ${color}">
+                    <th><p class="mb-0">📅 Fecha inicio</p></th>
+                    <th><p class="mb-0">📅 Fecha fin</p></th>
+                </tr>
+                <tr>
+                    <td class="dataUpdt">${ds}</td>
+                    <td class="dataUpdt">${ de == null ? 'Sin fecha' : de }</td>
+                </tr>
+                <tr style="color: ${color}">
+                    <th><p class="mb-0">⏰ Hora inicio</p></th>
+                    <th><p class="mb-0">⏰ Hora fin</p></th>
+                </tr>
+                <tr>
+                    <td class="dataUpdt">${hs}</td>
+                    <td class="dataUpdt">${ he == null ? 'Sin hora' : he }</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="dataUpdt">${dp}</td>
+                </tr>
+            </tbody>
+        </table>`;
+
+        $('#eventModal .btnClose').css({"background-color": color, "border-color": color})
+        $('#eventModal .modal-body').html(html);
+        $('#eventModal').modal('show');
     },
   });
   calendar.render();
