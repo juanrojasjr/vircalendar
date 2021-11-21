@@ -1,7 +1,82 @@
 import { updtFullCalendar } from './fullcalendar.js';
 
+function eventInit() {
+    $('#btnUpdateInputs').click((e) => { 
+        e.preventDefault();
+        updateInputsData();
+    });
+
+    $('#btnSaveUpdt').click((e) => { 
+        e.preventDefault();
+        updateEvent();
+    });
+
+    $('#btnDeleteEvent').click((e) => { 
+        e.preventDefault();
+        deleteEvent( $('#eid').text() );
+    });
+
+    /* Agregar un nuevo evento */
+    $('#addEvent button[type="submit"]').click(function (e) {
+        e.preventDefault();
+        createEvent()
+    });
+}
+
 function createEvent() {
-    updtFullCalendar();
+    let uid = localStorage.getItem('uid'),
+    tt = $("#tt").val(),
+    ds = $("#ds").val(),
+    de = $("#endDate").is(":checked") ? $("#de").val() : null,
+    hs = $("#hs").val(),
+    he = $("#endHour").is(":checked") ? $("#he").val() : null,
+    dc = $("#dc").val(),
+    cl = $("#cl").val();
+  let deIncrement = de != null ? moment(de).add(1, 'days').format("YYYY-MM-DD") : null;
+  if (
+    $("#tt").val() != "" &&
+    $("#ds").val() != "" &&
+    $("#hs").val() != "" &&
+    $("#dc").val() != ""
+  ) {
+    $.ajax({
+      method: "POST",
+      url: "core/events/create.php",
+      data: {
+        uid: uid,
+        tt: tt,
+        ds: ds,
+        de: deIncrement,
+        hs: hs,
+        he: he,
+        dc: dc,
+        cl: cl,
+      },
+    }).done((msg) => {
+      if (msg == 1) {
+        Swal.fire({
+          icon: "success",
+          text: "Evento creado",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        $("#addEvent").modal("hide");
+        updtFullCalendar();
+      } else {
+        Swal.fire({
+          icon: "error",
+          text: "Contacte con el administrador del sitio",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
+  } else {
+    Swal.fire({
+      icon: "error",
+      text: "Debe llenar mínimo el campo título, fecha de inicio, hora de inicio y descripción.",
+    });
+  }
 }
 
 function deleteEvent(eid) {
@@ -69,5 +144,4 @@ function updateInputsData() {
     $('#btnSaveUpdt').show()
 }
 
-
-export { createEvent, updateEvent, deleteEvent, updateInputsData }
+export { eventInit, createEvent, updateEvent, deleteEvent, updateInputsData }
