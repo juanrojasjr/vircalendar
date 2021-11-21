@@ -1,4 +1,12 @@
+import { fullcalendar, updtFullCalendar } from './fullcalendar.js';
+
 const calendarEl = document.getElementById("calendar");
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (calendarEl != null) {
+    fullcalendar(calendarEl);
+  }
+});
 
 /* Elimina el calendario si no detecta un inicio de sesión */
 if (calendarEl && !sessionStorage.getItem('uid')) {
@@ -68,6 +76,7 @@ $('#addEvent button[type="submit"]').click(function (e) {
           timer: 1500,
         });
         $("#addEvent").modal("hide");
+        updtFullCalendar();
         //$("#calendar").empty();
         //calendarEl.refetchEvents();
       } else {
