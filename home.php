@@ -2,54 +2,54 @@
   $config = include 'core/config.php';
   include 'layout/head.html';
 ?>
-    <header>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-          <a class="navbar-brand" href="#"><?php echo $config['site']['name']; ?></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="#"><?php echo $config['site']['name']; ?></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="#addEvent" data-bs-toggle="modal">Agregar evento</a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="/" onclick="closeSession()">Cerrar sesión</a>
-              </li>
-              <!-- <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Categorías
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">Entretenimiento</a>
-                  <a class="dropdown-item" href="#">Estudio</a>
-                  <a class="dropdown-item" href="#">Trabajo</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Ver todos</a>
-                </div>
-              </li> -->
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
-
-    <main>
-      <div class="page p-5">
-        <div class="card p-5">
-          <div id='calendar'></div>
-          <div class="noLogin text-center d-none">
-            <p>No se ha iniciado sesión correctamente.</p>
-            <a href="/">Inciar sesión</a>
-          </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#addEvent" data-bs-toggle="modal">Agregar evento</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/" onclick="closeSession()">Cerrar sesión</a>
+            </li>
+            <!-- <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categorías
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Entretenimiento</a>
+                <a class="dropdown-item" href="#">Estudio</a>
+                <a class="dropdown-item" href="#">Trabajo</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Ver todos</a>
+              </div>
+            </li> -->
+          </ul>
         </div>
       </div>
-    </main>
+    </nav>
+  </header>
 
-  <!-- Modal -->
-  <div class="modal fade" id="addEvent" data-bs-backdrop="static" tabindex="-1" aria-labelledby="addEventLabel" aria-hidden="true">
+  <main>
+    <div class="page p-5">
+      <div class="card p-5">
+        <div id='calendar'></div>
+        <div class="noLogin text-center d-none">
+          <p>No se ha iniciado sesión correctamente.</p>
+          <a href="/">Inciar sesión</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal addEvent-->
+  <div class="modal fade" id="addEvent" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addEventLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -101,6 +101,25 @@
               <button type="submit" class="btn btn-primary">Agregar</button>
             </div>
           </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal see information -->
+  <div class="modal fade" id="eventModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header justify-content-center">
+          <div class="btn-group" role="group">
+              <button type="button" class="btn btn-outline-warning btn-sm" id="btnUpdateInputs">🖊 Modificar</button>
+              <button type="button" class="btn btn-outline-danger btn-sm">🗑 Eliminar</button>
+          </div>
+        </div>
+        <div class="modal-body text-center"></div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-success" id="btnSaveUpdt" style="display: none;">Guardar</button>
+          <button type="button" class="btn btn-secondary btnClose" data-bs-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>
