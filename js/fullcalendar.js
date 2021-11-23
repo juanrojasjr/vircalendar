@@ -24,7 +24,7 @@ function fullcalendar(calendarEl) {
       dataType: "json",
       url: "core/events/read.php",
       extraParams: {
-        uid: localStorage.getItem("uid"),
+        uid: sessionStorage.getItem("uid"),
       },
     },
     eventClick: function (info) {

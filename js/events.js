@@ -25,7 +25,7 @@ function eventInit() {
 }
 
 function createEvent() {
-    let uid = localStorage.getItem('uid'),
+    let uid = sessionStorage.getItem('uid'),
     tt = $("#tt").val(),
     ds = $("#ds").val(),
     de = $("#endDate").is(":checked") ? $("#de").val() : null,
