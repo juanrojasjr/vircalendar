@@ -1,5 +1,5 @@
 <?php
-    $config = include 'core/config.php';
+    $config = include 'config.php';
 
     //Establece la conexión con el servidor de base de datos
     $connection = new PDO($config['db']['common'], $config['db']['user'], $config['db']['pass'], $config['db']['options']);
@@ -28,13 +28,11 @@
     }
 
     function sendEmail($pass,$iddUser,$email){
-        include '../core/conexion.php';
-
         $passEncry = password_hash($pass, PASSWORD_BCRYPT);
 
         //Actualiza la db con la nueva contraseña
         $sqlUp = 'UPDATE user SET Password=? WHERE IdUser=?';
-        $sent1 = $pdo->prepare($sqlUp);
+        $sent1 = $connection->prepare($sqlUp);
         $sent1->execute(array($passEncry,$iddUser));
 
         $dest = $email; //Email de destino
@@ -60,7 +58,7 @@
                         </div>
                     </body>
                     </html>"; //Cuerpo del mensaje
-                    
+
         //Cabeceras del correo
         $headers = "From:". $config['site']['name']." <". $config['site']['correo'] .">\r\n"; //Quien envia?
         $headers .= "X-Mailer: PHP5\n";
@@ -72,6 +70,5 @@
         }else{
             $result = 0;
         }
-        
         echo $result;
     }

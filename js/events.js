@@ -22,6 +22,24 @@ function eventInit() {
         e.preventDefault();
         createEvent()
     });
+
+    /* Validar checkbox Fecha */
+    $("#endDate").click(function (e) {
+        if ($(this).is(":checked")) {
+            $("#de").prop("disabled", false);
+        } else {
+            $("#de").prop("disabled", true);
+        }
+    });
+
+    /* Validar checkbox Hora */
+    $("#endHour").click(function (e) {
+        if ($(this).is(":checked")) {
+            $("#he").prop("disabled", false);
+        } else {
+            $("#he").prop("disabled", true);
+        }
+    });
 }
 
 function createEvent() {
