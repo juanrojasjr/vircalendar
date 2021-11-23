@@ -6,8 +6,8 @@
 
     $email = $_POST['email'];
 
-    $sql = 'SELECT IdUser, Email FROM user WHERE Email=?';
-    $sent = $pdo->prepare($sql);
+    $sql = 'SELECT uid, email FROM users_data WHERE email=?';
+    $sent = $connection->prepare($sql);
     $sent->execute(array($email));
     $res = $sent->fetch();
 
@@ -20,7 +20,7 @@
                 //obtenemos un caracter aleatorio escogido de la cadena de caracteres
                 $password .= substr($str,rand(0,62),1);
             }
-            $iddUser = $res['IdUser'];
+            $iddUser = $res['uid'];
             sendEmail($password,$iddUser,$email);
     }else {
         echo 0;
@@ -31,12 +31,12 @@
         $passEncry = password_hash($pass, PASSWORD_BCRYPT);
 
         //Actualiza la db con la nueva contraseña
-        $sqlUp = 'UPDATE user SET Password=? WHERE IdUser=?';
-        $sent1 = $connection->prepare($sqlUp);
+        $sqlUp = 'UPDATE users_data SET password=? WHERE uid=?';
+        $sent1 = $GLOBALS['connection']->prepare($sqlUp);
         $sent1->execute(array($passEncry,$iddUser));
 
         $dest = $email; //Email de destino
-        $asunto = "Reestablecer contraseña - " . $config['site']['name']; //Asunto
+        $asunto = "Reestablecer contraseña - " . $GLOBALS['config']['site']['name']; //Asunto
         $cuerpo = "
                     <!DOCTYPE html>
                     <html lang='es'>
@@ -60,7 +60,7 @@
                     </html>"; //Cuerpo del mensaje
 
         //Cabeceras del correo
-        $headers = "From:". $config['site']['name']." <". $config['site']['correo'] .">\r\n"; //Quien envia?
+        $headers = "From:". $GLOBALS['config']['site']['name']." <". $GLOBALS['config']['site']['correo'] .">\r\n"; //Quien envia?
         $headers .= "X-Mailer: PHP5\n";
         $headers .= 'MIME-Version: 1.0' . "\n";
         $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n"; //

@@ -1,4 +1,4 @@
-function loginInit() {
+export function loginInit() {
   /* Inicio de sesión */
   $('#login button[type="submit"]').click(function (e) {
     e.preventDefault();
