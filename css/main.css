@@ -16,3 +16,8 @@ body{
     text-decoration: none;
     color: black;
 }
+
+#eventModal table tr:nth-child(5) td,
+#eventModal table tr:nth-child(6) td {
+    border: 0;
+}

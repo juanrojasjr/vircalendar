@@ -62,27 +62,27 @@
                 <input type="text" class="form-control" id="tt" placeholder="Titulo del evento">
               </div>
               <div class="col">
-                <label for="ds" class="form-label">Fecha del evento</label>
+                <label for="ds" class="form-label">📅 Fecha de inicio</label>
                 <input type="date" class="form-control" id="ds" placeholder="Fecha inicio">
               </div>
               <div class="col">
                 <div class="form-check mb-2">
                   <input class="form-check-input" type="checkbox" id="endDate">
                   <label class="form-check-label" for="endDate">
-                    Fin del evento
+                  📅 Fecha fin
                   </label>
                 </div>
                 <input type="date" class="form-control" id="de" disabled>
               </div>
               <div class="col">
-                <label for="exampleInputEmail1">Hora de inicio</label>
+                <label for="exampleInputEmail1" class="mb-2">⏰ Hora inicio</label>
                 <input type="time" class="form-control" id="hs">
               </div>
               <div class="col">
                 <div class="form-check mb-2">
                   <input class="form-check-input" type="checkbox" id="endHour">
                   <label class="form-check-label" for="endHour">
-                    Hora de fin
+                  ⏰ Hora de fin
                   </label>
                 </div>
                 <input type="time" class="form-control" id="he" disabled>
