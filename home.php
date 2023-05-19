@@ -16,7 +16,7 @@
               <a class="nav-link" href="#addEvent" data-bs-toggle="modal">Agregar evento</a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="/" onclick="closeSession()">Cerrar sesión</a>
+              <a class="nav-link" href="#" id="closeSession">Cerrar sesión</a>
             </li>
             <!-- <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

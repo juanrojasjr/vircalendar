@@ -13,9 +13,7 @@ export function loginInit() {
       const errContainer = $(".errorContainer");
 
       if (errors["error"]) {
-        let html = `<div class="alert alert-${
-          errors["error"] ? "danger" : "success"
-        }" role="alert">${errors["msg"]}</div>`;
+        let html = `<div class="alert alert-${errors["error"] ? "danger" : "success"}" role="alert">${errors["msg"]}</div>`;
         errContainer.show();
         $(html).appendTo(errContainer);
       } else {
@@ -37,16 +35,12 @@ export function loginInit() {
       data: { email: email },
     }).done(function (msg) {
       console.log(msg);
-      // if (msg==0) {
-      //     alertD.removeClass('d-none')
-      // }else{
-      //     alertS.removeClass('d-none')
-      // }
     });
   });
 
-  function closeSession() {
+  $('#closeSession').click(function (e) {
     sessionStorage.clear();
-    window.location.href = "/";
-  }
+    window.location.href = 'core/close.php';
+  })
+
 }

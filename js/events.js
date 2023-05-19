@@ -4,7 +4,7 @@ function eventInit() {
     $('#btnUpdateInputs').click((e) => {
         e.preventDefault();
         updateInputsData();
-        $('#btnUpdateInputs').prop("disabled",true);
+        $('#btnUpdateInputs').prop("disabled", true);
     });
 
     $('#btnSaveUpdt').click((e) => {
@@ -44,59 +44,59 @@ function eventInit() {
 
 function createEvent() {
     let uid = sessionStorage.getItem('uid'),
-    tt = $("#tt").val(),
-    ds = $("#ds").val(),
-    de = $("#endDate").is(":checked") ? $("#de").val() : null,
-    hs = $("#hs").val(),
-    he = $("#endHour").is(":checked") ? $("#he").val() : null,
-    dc = $("#dc").val(),
-    cl = $("#cl").val();
-  let deIncrement = de != null ? moment(de).add(1, 'days').format("YYYY-MM-DD") : null;
-  if (
-    $("#tt").val() != "" &&
-    $("#ds").val() != "" &&
-    $("#hs").val() != "" &&
-    $("#dc").val() != ""
-  ) {
-    $.ajax({
-      method: "POST",
-      url: "core/events/create.php",
-      data: {
-        uid: uid,
-        tt: tt,
-        ds: ds,
-        de: deIncrement,
-        hs: hs,
-        he: he,
-        dc: dc,
-        cl: cl,
-      },
-    }).done((msg) => {
-      if (msg == 1) {
-        Swal.fire({
-          icon: "success",
-          text: "Evento creado",
-          showConfirmButton: false,
-          timer: 1500,
+        tt = $("#tt").val(),
+        ds = $("#ds").val(),
+        de = $("#endDate").is(":checked") ? $("#de").val() : null,
+        hs = $("#hs").val(),
+        he = $("#endHour").is(":checked") ? $("#he").val() : null,
+        dc = $("#dc").val(),
+        cl = $("#cl").val();
+    let deIncrement = de != null ? moment(de).add(1, 'days').format("YYYY-MM-DD") : null;
+    if (
+        $("#tt").val() != "" &&
+        $("#ds").val() != "" &&
+        $("#hs").val() != "" &&
+        $("#dc").val() != ""
+    ) {
+        $.ajax({
+            method: "POST",
+            url: "core/events/create.php",
+            data: {
+                uid: uid,
+                tt: tt,
+                ds: ds,
+                de: deIncrement,
+                hs: hs,
+                he: he,
+                dc: dc,
+                cl: cl,
+            },
+        }).done((msg) => {
+            if (msg == 1) {
+                Swal.fire({
+                    icon: "success",
+                    text: "Evento creado",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+                $("#addEvent").modal("hide");
+                updtFullCalendar();
+            } else {
+                console.error(msg);
+                Swal.fire({
+                    icon: "error",
+                    text: "Contacte con el administrador del sitio",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+            }
         });
-        $("#addEvent").modal("hide");
-        updtFullCalendar();
-      } else {
-        console.error(msg);
+    } else {
         Swal.fire({
-          icon: "error",
-          text: "Contacte con el administrador del sitio",
-          showConfirmButton: false,
-          timer: 1500,
+            icon: "error",
+            text: "Debe llenar mínimo el campo título, fecha de inicio, hora de inicio y descripción.",
         });
-      }
-    });
-  } else {
-    Swal.fire({
-      icon: "error",
-      text: "Debe llenar mínimo el campo título, fecha de inicio, hora de inicio y descripción.",
-    });
-  }
+    }
 }
 
 function deleteEvent() {
@@ -115,8 +115,8 @@ function deleteEvent() {
             $.ajax({
                 method: "POST",
                 url: "core/events/delete.php",
-                data: {eid: eid}
-            }).done( (msg) => {
+                data: { eid: eid }
+            }).done((msg) => {
                 if (msg == 1) {
                     Swal.fire({
                         title: '¡Eliminado!',
@@ -142,24 +142,24 @@ function deleteEvent() {
 function updateEvent() {
     let eid = $('#eid').text();
     const dataUpdt = [];
-    $.each( $('.dataUpdtInput'), (idx, val) => {
+    $.each($('.dataUpdtInput'), (idx, val) => {
         if (idx == 1) {
             let date = $(val).val();
             let dateFormate = moment(date).format("YYYY-MM-DD");
             dataUpdt.push(dateFormate);
-        } else if(idx == 2) {
+        } else if (idx == 2) {
             let date = $(val).val();
             let dateFormate = moment(date).add(1, 'days').format("YYYY-MM-DD");
             dataUpdt.push(dateFormate);
-        }else{
+        } else {
             dataUpdt.push($(val).val())
         }
     });
     $.ajax({
         method: "POST",
         url: "core/events/update.php",
-        data: {eid: eid, data: JSON.stringify(dataUpdt)}
-    }).done( (msg) => {
+        data: { eid: eid, data: JSON.stringify(dataUpdt) }
+    }).done((msg) => {
         if (msg == 1) {
             Swal.fire({
                 title: 'actualizado!',
@@ -183,21 +183,21 @@ function updateEvent() {
 
 function updateInputsData() {
     /* Toma los string y coloca estos en inputs según dato */
-    $.each( $('.dataUpdt'), (idx, val) => {
+    $.each($('.dataUpdt'), (idx, val) => {
         let data = $(val).text();
         // Formatea la fecha
-        let dataConv = idx == 1 || idx == 2  ? moment(data, 'DD-MM-YYYY').format('YYYY-MM-DD') : data;
+        let dataConv = idx == 1 || idx == 2 ? moment(data, 'DD-MM-YYYY').format('YYYY-MM-DD') : data;
 
         if (idx == 0) {
-            $(val).html(`<input type="text" class="form-control dataUpdtInput" value="${ dataConv }">`);
-        }else if (idx <= 2) {
-            dataConv == 'Sin fecha' ? $(val).html(`<input type="date" class="form-control dataUpdtInput">`) : $(val).html(`<input type="date" class="form-control dataUpdtInput" value="${ dataConv }">`);
+            $(val).html(`<input type="text" class="form-control dataUpdtInput" value="${dataConv}">`);
+        } else if (idx <= 2) {
+            dataConv == 'Sin fecha' ? $(val).html(`<input type="date" class="form-control dataUpdtInput">`) : $(val).html(`<input type="date" class="form-control dataUpdtInput" value="${dataConv}">`);
         } else if (idx <= 4) {
-            dataConv == 'Sin hora' ? $(val).html(`<input type="time" class="form-control dataUpdtInput">`) : $(val).html(`<input type="time" class="form-control dataUpdtInput" value="${ dataConv }">`);
-        }else if (idx == 5){
+            dataConv == 'Sin hora' ? $(val).html(`<input type="time" class="form-control dataUpdtInput">`) : $(val).html(`<input type="time" class="form-control dataUpdtInput" value="${dataConv}">`);
+        } else if (idx == 5) {
             $(val).html(`<textarea class="form-control dataUpdtInput" rows="3"></textarea>`);
             $('textarea.dataUpdtInput').val(dataConv);
-        }else{
+        } else {
             $(val).show();
         }
     });

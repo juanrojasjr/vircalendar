@@ -3,18 +3,19 @@
 $host = 'localhost';
 $user = 'root';
 $pass = '';
-$nameDb = 'vircalendar';
+$nameDb = 'virtcalendar';
 
 return [
     'db' => [
         'start' => 'mysql:host='. $host,
         'common' => 'mysql:host='.$host.';dbname='.$nameDb,
+        'nameDb' => $nameDb,
         'user' => $user,
         'pass' => $pass,
         'options' => [ PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION ]
     ],
     'site' => [
-        'name' => 'VirCalendar',
-        'correo' => 'soporte@virtcalendar.com'
+        'name' => 'VirtCalendar',
+        'correo' => 'juandarojas01@gmail.com'
     ]
 ];
