@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
+:root{
+    --accent-color: #2ca7ff
+}
+
 body{
     background-image: url("./../image/bg.jpg");
     background-repeat: no-repeat;
@@ -20,4 +24,52 @@ body{
 #eventModal table tr:nth-child(5) td,
 #eventModal table tr:nth-child(6) td {
     border: 0;
+}
+
+/* User menu */
+#userMnu {
+    position: relative;
+}
+#userMnu .photo{
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    overflow: hidden;
+    border: 2px solid white;
+    padding: 2px;
+    box-shadow: 0 0 0 2px var(--accent-color);
+}
+#userMnu .mnu{
+    display: none;
+    list-style: none;
+    padding: 20px;
+    margin: 0;
+
+    position: absolute;
+    right: 0;
+    width: 250px;
+    background-color: white;
+    border-radius: 8px;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+#userMnu .mnu li{
+    margin-bottom: 10px;
+    cursor: pointer;
+    padding: 5px 0;
+    border-bottom: 1px double transparent;
+    transition: all 0.3s ease-in-out;
+}
+#userMnu .mnu li:hover{
+    border-color: var(--accent-color);
+}
+#userMnu .mnu li.text-danger:hover{
+    border-color: var(--bs-danger);
+}
+#userMnu .mnu li:last-child{
+    margin-bottom: 0px;
+}
+#userMnu:hover .mnu{
+    display: block;
 }
