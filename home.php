@@ -6,32 +6,17 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
         <a class="navbar-brand" href="#"><?php echo $config['site']['name']; ?></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#addEvent" data-bs-toggle="modal">Agregar evento</a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="#" id="closeSession">Cerrar sesión</a>
-            </li>
-            <!-- <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Categorías
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Entretenimiento</a>
-                <a class="dropdown-item" href="#">Estudio</a>
-                <a class="dropdown-item" href="#">Trabajo</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Ver todos</a>
-              </div>
-            </li> -->
+        <span class="firstname"></span>
+
+        <div id="userMnu">
+          <div class="photo" style="background: url('https://picsum.photos/200/') center center / cover"></div>
+          <ul class="mnu shadow-lg">
+            <li data-bs-toggle="modal" data-bs-target="#changePassModal"><i class="bi bi-key-fill"></i> Cambiar contraseña</li>
+            <li class="text-danger" id="closeSession"><i class="bi bi-box-arrow-right"></i> Cerrar cesión</li>
           </ul>
         </div>
+
       </div>
     </nav>
   </header>
@@ -60,6 +45,10 @@
             <div class="row g-3">
               <div class="col-12">
                 <input type="text" class="form-control" id="tt" placeholder="Titulo del evento">
+              </div>
+              <div class="col-12">
+                <input type="email" class="form-control" id="invited" placeholder="Invitados">
+                <span class="text-muted">Escriba los correos electrónicos separados por comas.</span>
               </div>
               <div class="col">
                 <label for="ds" class="form-label">📅 Fecha de inicio</label>
@@ -95,6 +84,7 @@
                 <label for="cl" class="form-label">Color del evento</label>
                 <input type="color" id="cl" class="form-control">
               </div>
+              <span class="text-muted">Serán notificadas las personas que estén invitadas vía correo electrónico.</span>
             </div>
             <div class="modal-footer mt-2">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -120,6 +110,38 @@
         <div class="modal-footer justify-content-center">
           <button type="button" class="btn btn-success" id="btnSaveUpdt" style="display: none;">Guardar</button>
           <button type="button" class="btn btn-secondary btnClose" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal change passwords -->
+  <div class="modal fade" id="changePassModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header justify-content-center">
+          Cambiar la contraseña
+        </div>
+        <div class="modal-body text-center">
+          <form id="changePassForm" method="POST">
+            <div class="mb-3 d-none">
+                <input type="text" id="user" name="user" class="form-control" placeholder="user" autocomplete="user">
+            </div>
+            <div class="mb-3">
+                <input type="password" id="oldPass" name="oldPass" class="form-control" placeholder="Contraseña anterior" autocomplete="current-password">
+                <span class="text-danger d-none" id="oldPassMsg">La contraseña anterior, no coincide con la que tenemos en la base de datos.</span>
+            </div>
+            <div class="mb-3">
+                <input type="password" class="form-control" id="newPass" name="newPass" placeholder="Nueva contraseña" autocomplete="new-password">
+            </div>
+            <div class="mb-3">
+                <input type="password" class="form-control" id="repNewPass" name="repNewPass" placeholder="Repetir nueva contraseña" autocomplete="new-password">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="submit" class="btn btn-success" id="btnSaveChangePass">Cambiar</button>
+          <button type="button" class="btn btn-secondary btnClose" data-bs-dismiss="modal">Cancelar</button>
         </div>
       </div>
     </div>
