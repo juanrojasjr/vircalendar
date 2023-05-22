@@ -28,7 +28,7 @@
         //Valida si la creación fue exitosa
         if (file_put_contents('config.php', $dataForm)) {
             //Al serlo, es dirigido a la instalación
-            header( 'Location: ./../install.php' );
+            header( 'Location: install.php' );
             exit;
         }
     }

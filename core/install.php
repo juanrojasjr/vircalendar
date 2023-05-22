@@ -51,7 +51,7 @@ $result = [
                     $conexionDB = new PDO($config['db']['common'], $config['db']['user'], $config['db']['pass'], $config['db']['options']);
                     //Creando las tablas y registros
                     try {
-                      $sql = file_get_contents("core/sqlDataBase.sql");
+                      $sql = file_get_contents("sqlDataBase.sql");
                       $conexionDB->exec($sql);
                       echo '<p>Tabla de roles de usuario <span class="text-muted">..........</span> creada con <span class="text-success">éxito</span></p>';
                       echo '<p>Tabla de usuarios <span class="text-muted">..........</span> creada con <span class="text-success">éxito</span></p>';

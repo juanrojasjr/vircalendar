@@ -31,6 +31,7 @@ CREATE TABLE `events` (
   `eid` int(11) NOT NULL,
   `uid` int(11) NOT NULL,
   `name` varchar(60) NOT NULL,
+  `invited` TEXT NOT NULL,
   `desc` varchar(255) NOT NULL,
   `date_start` date NOT NULL,
   `date_end` date DEFAULT NULL,
