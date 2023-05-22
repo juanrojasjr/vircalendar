@@ -29,6 +29,7 @@ function fullcalendar(calendarEl) {
     },
     eventClick: function (info) {
       const tt = info.event.title,
+        invited = info.event.extendedProps.invited,
         ds = moment(info.event.start).format("DD-MM-YYYY"),
         de = moment(info.event.end).subtract(1, "days").format("DD-MM-YYYY"),
         dp = info.event.extendedProps.desc,
@@ -40,7 +41,14 @@ function fullcalendar(calendarEl) {
         let html = `<div class="visually-hidden" id="eid">${eid}</div>
         <h2 class="swal2-title dataUpdt" style="color: ${color}">${tt}</h2>
         <table class="table">
-            <tbody>
+        <tbody>
+                ${invited !== '' ? `<tr style="color: ${color}">
+                                        <th colspan="2"><p class="mb-0">🙍‍♀️🙍‍♂️ Invitados</p></th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><p class="mb-0">${invited}</p></th>
+                                    </tr>`
+                : ''}                
                 <tr style="color: ${color}">
                     <th><p class="mb-0">📅 Fecha inicio</p></th>
                     <th><p class="mb-0">📅 Fecha fin</p></th>

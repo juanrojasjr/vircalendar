@@ -1,18 +1,18 @@
-import { updtFullCalendar } from './fullcalendar.js';
+import { updtFullCalendar } from "./fullcalendar.js";
 
 function eventInit() {
-    $('#btnUpdateInputs').click((e) => {
+    $("#btnUpdateInputs").click((e) => {
         e.preventDefault();
         updateInputsData();
-        $('#btnUpdateInputs').prop("disabled", true);
+        $("#btnUpdateInputs").prop("disabled", true);
     });
 
-    $('#btnSaveUpdt').click((e) => {
+    $("#btnSaveUpdt").click((e) => {
         e.preventDefault();
         updateEvent();
     });
 
-    $('#btnDeleteEvent').click((e) => {
+    $("#btnDeleteEvent").click((e) => {
         e.preventDefault();
         deleteEvent();
     });
@@ -20,7 +20,7 @@ function eventInit() {
     /* Agregar un nuevo evento */
     $('#addEvent button[type="submit"]').click(function (e) {
         e.preventDefault();
-        createEvent()
+        createEvent();
     });
 
     /* Validar checkbox Fecha */
@@ -43,51 +43,62 @@ function eventInit() {
 }
 
 function createEvent() {
-    let uid = sessionStorage.getItem('uid'),
+    let uid = sessionStorage.getItem("uid"),
+        uName = sessionStorage.getItem("name"),
         tt = $("#tt").val(),
+        invited = $("#invited").val(),
         ds = $("#ds").val(),
         de = $("#endDate").is(":checked") ? $("#de").val() : null,
         hs = $("#hs").val(),
         he = $("#endHour").is(":checked") ? $("#he").val() : null,
         dc = $("#dc").val(),
         cl = $("#cl").val();
-    let deIncrement = de != null ? moment(de).add(1, 'days').format("YYYY-MM-DD") : null;
-    if (
-        $("#tt").val() != "" &&
-        $("#ds").val() != "" &&
-        $("#hs").val() != "" &&
-        $("#dc").val() != ""
-    ) {
+    let deIncrement = de != null ? moment(de).add(1, "days").format("YYYY-MM-DD") : null;
+    if ($("#tt").val() != "" && $("#ds").val() != "" && $("#hs").val() != "" && $("#dc").val() != "") {
         $.ajax({
             method: "POST",
             url: "core/events/create.php",
             data: {
-                uid: uid,
-                tt: tt,
-                ds: ds,
+                uid,
+                uName,
+                tt,
+                invited,
+                ds,
                 de: deIncrement,
-                hs: hs,
-                he: he,
-                dc: dc,
-                cl: cl,
+                hs,
+                he,
+                dc,
+                cl,
             },
         }).done((msg) => {
-            if (msg == 1) {
+            const result = JSON.parse(msg);
+            if (result['event'] && result['email']) {
                 Swal.fire({
                     icon: "success",
-                    text: "Evento creado",
+                    title: "¡Excelente!",
+                    text: "Se ha creado el evento y hemos notificado a los invitados.",
                     showConfirmButton: false,
-                    timer: 1500,
+                    timer: 3000,
                 });
                 $("#addEvent").modal("hide");
                 updtFullCalendar();
-            } else {
-                console.error(msg);
+            } else if (result['event']) {
+                Swal.fire({
+                    icon: "success",
+                    title: "¡Excelente!",
+                    text: "Se ha creado el evento.",
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+                $("#addEvent").modal("hide");
+                updtFullCalendar();
+            } else{
+                console.error(result['error']);
                 Swal.fire({
                     icon: "error",
                     text: "Contacte con el administrador del sitio",
                     showConfirmButton: false,
-                    timer: 1500,
+                    timer: 3000,
                 });
             }
         });
@@ -100,31 +111,31 @@ function createEvent() {
 }
 
 function deleteEvent() {
-    let eid = $('#eid').text();
+    let eid = $("#eid").text();
     Swal.fire({
-        title: '¡Espera un segundo!',
+        title: "¡Espera un segundo!",
         text: "¿En realidad quieres eliminar este evento?",
-        icon: 'warning',
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#198754',
-        cancelButtonColor: '#dc3545',
-        confirmButtonText: '¡Si, eliminar!',
-        cancelButtonText: 'Mejor no'
+        confirmButtonColor: "#198754",
+        cancelButtonColor: "#dc3545",
+        confirmButtonText: "¡Si, eliminar!",
+        cancelButtonText: "Mejor no",
     }).then((result) => {
-        if (result.dismiss != 'cancel') {
+        if (result.dismiss != "cancel") {
             $.ajax({
                 method: "POST",
                 url: "core/events/delete.php",
-                data: { eid: eid }
+                data: { eid: eid },
             }).done((msg) => {
                 if (msg == 1) {
                     Swal.fire({
-                        title: '¡Eliminado!',
-                        text: 'Tu evento a quedado en el olvido.',
-                        icon: 'success',
-                        confirmButtonText: 'Vale'
+                        title: "¡Eliminado!",
+                        text: "Tu evento a quedado en el olvido.",
+                        icon: "success",
+                        confirmButtonText: "Vale",
                     });
-                    $('#eventModal').modal('hide');
+                    $("#eventModal").modal("hide");
                     updtFullCalendar();
                 } else {
                     console.error(msg);
@@ -140,35 +151,35 @@ function deleteEvent() {
 }
 
 function updateEvent() {
-    let eid = $('#eid').text();
+    let eid = $("#eid").text();
     const dataUpdt = [];
-    $.each($('.dataUpdtInput'), (idx, val) => {
+    $.each($(".dataUpdtInput"), (idx, val) => {
         if (idx == 1) {
             let date = $(val).val();
             let dateFormate = moment(date).format("YYYY-MM-DD");
             dataUpdt.push(dateFormate);
         } else if (idx == 2) {
             let date = $(val).val();
-            let dateFormate = moment(date).add(1, 'days').format("YYYY-MM-DD");
+            let dateFormate = moment(date).add(1, "days").format("YYYY-MM-DD");
             dataUpdt.push(dateFormate);
         } else {
-            dataUpdt.push($(val).val())
+            dataUpdt.push($(val).val());
         }
     });
     $.ajax({
         method: "POST",
         url: "core/events/update.php",
-        data: { eid: eid, data: JSON.stringify(dataUpdt) }
+        data: { eid: eid, data: JSON.stringify(dataUpdt) },
     }).done((msg) => {
         if (msg == 1) {
             Swal.fire({
-                title: 'actualizado!',
-                text: 'Tu evento quedó actualizado.',
-                icon: 'success',
-                confirmButtonText: 'Gracias'
+                title: "actualizado!",
+                text: "Tu evento quedó actualizado.",
+                icon: "success",
+                confirmButtonText: "Gracias",
             });
-            $('#btnSaveUpdt').hide();
-            $('#eventModal').modal('hide');
+            $("#btnSaveUpdt").hide();
+            $("#eventModal").modal("hide");
             updtFullCalendar();
         } else {
             console.error(msg);
@@ -183,25 +194,25 @@ function updateEvent() {
 
 function updateInputsData() {
     /* Toma los string y coloca estos en inputs según dato */
-    $.each($('.dataUpdt'), (idx, val) => {
+    $.each($(".dataUpdt"), (idx, val) => {
         let data = $(val).text();
         // Formatea la fecha
-        let dataConv = idx == 1 || idx == 2 ? moment(data, 'DD-MM-YYYY').format('YYYY-MM-DD') : data;
+        let dataConv = idx == 1 || idx == 2 ? moment(data, "DD-MM-YYYY").format("YYYY-MM-DD") : data;
 
         if (idx == 0) {
             $(val).html(`<input type="text" class="form-control dataUpdtInput" value="${dataConv}">`);
         } else if (idx <= 2) {
-            dataConv == 'Sin fecha' ? $(val).html(`<input type="date" class="form-control dataUpdtInput">`) : $(val).html(`<input type="date" class="form-control dataUpdtInput" value="${dataConv}">`);
+            dataConv == "Sin fecha" ? $(val).html(`<input type="date" class="form-control dataUpdtInput">`) : $(val).html(`<input type="date" class="form-control dataUpdtInput" value="${dataConv}">`);
         } else if (idx <= 4) {
-            dataConv == 'Sin hora' ? $(val).html(`<input type="time" class="form-control dataUpdtInput">`) : $(val).html(`<input type="time" class="form-control dataUpdtInput" value="${dataConv}">`);
+            dataConv == "Sin hora" ? $(val).html(`<input type="time" class="form-control dataUpdtInput">`) : $(val).html(`<input type="time" class="form-control dataUpdtInput" value="${dataConv}">`);
         } else if (idx == 5) {
             $(val).html(`<textarea class="form-control dataUpdtInput" rows="3"></textarea>`);
-            $('textarea.dataUpdtInput').val(dataConv);
+            $("textarea.dataUpdtInput").val(dataConv);
         } else {
             $(val).show();
         }
     });
-    $('#btnSaveUpdt').show()
+    $("#btnSaveUpdt").show();
 }
 
-export { eventInit, createEvent, updateEvent, deleteEvent, updateInputsData }
+export { eventInit, createEvent, updateEvent, deleteEvent, updateInputsData };
