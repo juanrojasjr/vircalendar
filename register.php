@@ -20,6 +20,7 @@
 
             // Recogemos y almacenamos la información del usuario en un arreglo
             $newUser = [
+                "rid" => 2,
                 "nickname" => $_POST['nickname'],
                 "password" => $pass_encryp,
                 "firstname" => $_POST['firstname'],
@@ -28,7 +29,7 @@
                 "age" => $_POST['age']
             ];
 
-            $sql = "INSERT INTO users_data (nickname, password, firstname, lastname, email, age)";
+            $sql = "INSERT INTO users_data (rid,nickname,password,firstname,lastname,email,age)";
             $sql .= "VALUES (:" . implode(", :", array_keys($newUser)) . ")";
             $sent = $connection->prepare($sql);
             $sent->execute($newUser);
